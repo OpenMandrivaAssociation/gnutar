@@ -5,7 +5,7 @@ Release:	%mkrel 1
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
-Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
 Patch0:		tar-1.21-xz-support.patch
