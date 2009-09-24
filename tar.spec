@@ -8,7 +8,7 @@ URL:		http://www.gnu.org/software/tar/tar.html
 Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
-BuildRequires:	bison
+BuildRequires:	bison xz
 Requires(post):		info-install
 Requires(preun):	info-install
 Conflicts:	rmt < 0.4b36
