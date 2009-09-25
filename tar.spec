@@ -1,13 +1,14 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.22
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
 Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
+Patch0:		tar-compatibility-Y-flag.patch
 BuildRequires:	bison xz
 Requires(post):		info-install
 Requires(preun):	info-install
@@ -33,6 +34,7 @@ with files.
 
 %prep
 %setup -q
+%patch0 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
