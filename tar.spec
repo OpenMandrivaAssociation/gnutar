@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.23
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -10,6 +10,7 @@ Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
 Patch0:		tar-compatibility-Y-flag.patch
 BuildRequires:	bison xz
+BuildRequires:	rsh
 Requires(post):	info-install
 Requires(preun):info-install
 Conflicts:	rmt < 0.4b36
