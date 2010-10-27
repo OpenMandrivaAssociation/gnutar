@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.24
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -12,6 +12,7 @@ BuildRequires:	bison xz
 BuildRequires:	rsh
 Patch0:		tar-1.24-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
+Patch2:		tar-1.24-fix-bug-with--C-and-extracting-directories.patch
 Requires(post):	info-install
 Requires(preun):info-install
 Conflicts:	rmt < 0.4b36
@@ -38,6 +39,7 @@ with files.
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
