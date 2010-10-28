@@ -61,7 +61,7 @@ xz ChangeLog
 # Disabled due to buildsystem weirdness: tests are always fine if you
 # do it with iurt on the cluster, but often fail when run through bs,
 # randomly - AdamW 2008/04
-#make check
+make check
 
 %install
 rm -rf %{buildroot}
