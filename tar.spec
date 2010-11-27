@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
-Version:	1.24
-Release:	%mkrel 4
+Version:	1.25
+Release:	%mkrel 1
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -10,13 +10,9 @@ Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
 BuildRequires:	bison xz
 BuildRequires:	rsh
-Patch0:		tar-1.24-fix-buffer-overflow.patch
+Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
-Patch2:		tar-1.24-fix-bug-with--C-and-extracting-directories.patch
-# patch from upstream and gentoo to fix the "tar do not extract device" problem
-# http://git.savannah.gnu.org/cgit/tar.git/commit/?id=3913675640f65bb4774429d369681957b528996e
-# http://bugs.gentoo.org/show_bug.cgi?id=343245
-Patch3:     tar-1.24-device-node.patch 
+ 
 Requires(post):	info-install
 Requires(preun):info-install
 Conflicts:	rmt < 0.4b36
@@ -42,10 +38,8 @@ with files.
 %prep
 
 %setup -q
-%patch0 -p1
+%patch0 -p0
 %patch1 -p0
-%patch2 -p1
-%patch3 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
