@@ -1,6 +1,6 @@
 Summary:	A GNU file archiving program
 Name:		tar
-Version:	1.25
+Version:	1.26
 Release:	%mkrel 1
 License:	GPLv3
 Group:		Archiving/Backup
