@@ -9,7 +9,7 @@ Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
 BuildRequires:	bison xz
-BuildRequires:	rsh
+Suggests:	/usr/bin/rsh
 Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
  
@@ -49,6 +49,7 @@ xz ChangeLog
 sed -i 's/.*sigpipe.at.*//' tests/testsuite.at
 
 %build
+RSH=/usr/bin/rsh \
 %configure2_5x \
 	--enable-backup-scripts \
 	--bindir=/bin \
