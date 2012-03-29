@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.26
-Release:	%mkrel 1
+Release:	2
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -13,8 +13,6 @@ Suggests:	/usr/bin/rsh
 Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
  
-Requires(post):	info-install
-Requires(preun):info-install
 Conflicts:	rmt < 0.4b36
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -85,12 +83,6 @@ mkdir -p %{buildroot}/sbin
 mv %{buildroot}%{_libdir}/rmt %{buildroot}/sbin/%rmtrealname
 
 %find_lang %{name}
-
-%post
-%_install_info %{name}.info
-
-%preun
-%_remove_install_info %{name}.info
 
 %clean
 rm -rf %{buildroot}
