@@ -14,7 +14,6 @@ Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
  
 Conflicts:	rmt < 0.4b36
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The GNU tar program saves many files together into one archive and
@@ -34,7 +33,6 @@ compression and decompression utilities essential for working
 with files.
 
 %prep
-
 %setup -q
 %patch0 -p0
 %patch1 -p0
@@ -66,7 +64,6 @@ RSH=/usr/bin/rsh \
 make check
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 ln -sf tar %{buildroot}/bin/gtar
@@ -84,11 +81,7 @@ mv %{buildroot}%{_libdir}/rmt %{buildroot}/sbin/%rmtrealname
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog.xz NEWS README THANKS TODO
 /bin/*
 %{_libexecdir}/backup.sh
