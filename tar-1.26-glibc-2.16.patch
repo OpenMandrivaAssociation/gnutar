@@ -1,0 +1,11 @@
+diff -p -up m4-1.4.16/lib/stdio.in.h.glibc-2_16 m4-1.4.16/lib/stdio.in.h
+--- tar-1.26/gnu/stdio.in.h.glibc-2_16	2011-03-01 17:39:29.000000000 +0100
++++ tar-1.26/gnu/stdio.in.h	2012-12-03 00:56:04.922202924 +0100
+@@ -162,7 +162,6 @@ _GL_WARN_ON_USE (fflush, "fflush is not
+    so any use of gets warrants an unconditional warning.  Assume it is
+    always declared, since it is required by C89.  */
+ #undef gets
+-_GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@

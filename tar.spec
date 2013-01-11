@@ -1,18 +1,18 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.26
-Release:	7
+Release:	8
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
 Source0:	ftp://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.bz2
-Source1:	%{SOURCE0}.sig
 Source2:	%{name}-help2man.bz2
-BuildRequires:	bison xz
-Suggests:	/usr/bin/rsh
 Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
-
+Patch2:		tar-1.26-glibc-2.16.patch
+BuildRequires:	bison
+BuildRequires:	xz
+Suggests:	/usr/bin/rsh
 Conflicts:	rmt < 0.4b36
 
 %description
@@ -37,11 +37,12 @@ with files.
 %setup -q
 %patch0 -p0
 %patch1 -p0
+%patch2 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
 
-xz ChangeLog
+xz -e ChangeLog
 
 sed -i 's/.*sigpipe.at.*//' tests/testsuite.at
 
@@ -51,7 +52,7 @@ RSH=/usr/bin/rsh \
 	--enable-backup-scripts \
 	--bindir=/bin \
 	--disable-rpath
-	
+
 %make
 
 # thanks to diffutils Makefile rule
@@ -83,7 +84,6 @@ mv %{buildroot}%{_libdir}/rmt %{buildroot}/sbin/%rmtrealname
 %find_lang %{name}
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog.xz NEWS README THANKS TODO
 /bin/*
 %{_libexecdir}/backup.sh
