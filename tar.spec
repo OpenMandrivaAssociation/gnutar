@@ -10,6 +10,7 @@ Source2:	%{name}-help2man.bz2
 Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
 Patch2:		tar-1.26-glibc-2.16.patch
+Patch3:		tar-aarch64.patch
 BuildRequires:	bison
 BuildRequires:	xz
 Suggests:	/usr/bin/rsh
@@ -38,6 +39,7 @@ with files.
 %patch0 -p0
 %patch1 -p0
 %patch2 -p1
+%patch3 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
