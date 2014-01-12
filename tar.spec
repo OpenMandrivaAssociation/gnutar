@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.27
-Release:	4
+Release:	5
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
