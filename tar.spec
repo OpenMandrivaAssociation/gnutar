@@ -77,7 +77,7 @@ mv %{buildroot}%{_sbindir}/restore %{buildroot}%{_sbindir}/tar-restore
 # rmt is provided by rmt ...
 %define rmtrealname rmt-tar
 mkdir -p %{buildroot}/sbin
-mv %{buildroot}%{_libdir}/rmt %{buildroot}/sbin/%rmtrealname
+mv %{buildroot}%{_libexecdir}/rmt %{buildroot}/sbin/%rmtrealname
 
 %find_lang %{name}
 
