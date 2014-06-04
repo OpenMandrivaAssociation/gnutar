@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		tar
 Version:	1.27.1
-Release:	5
+Release:	6
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -48,7 +48,6 @@ sed -i 's/.*sigpipe.at.*//' tests/testsuite.at
 RSH=/usr/bin/rsh \
 %configure2_5x \
 	--enable-backup-scripts \
-	--bindir=/bin \
 	--disable-rpath
 
 %make
@@ -57,18 +56,13 @@ RSH=/usr/bin/rsh \
 (echo '[NAME]' && sed 's@/\* *@@; s/-/\\-/; q' src/tar.c) | (./help2man -i - -S '%{name} %{version}' src/tar ) | sed 's/^\.B info .*/.B info %{name}/' > %{name}.1
 
 %check
-# Disabled due to buildsystem weirdness: tests are always fine if you
-# do it with iurt on the cluster, but often fail when run through bs,
-# randomly - AdamW 2008/04
-# (misc, 02-11-2010, sigpipe test do not pass on iurt )
-make check
+%make check
 
 %install
 %makeinstall_std
 
-ln -sf tar %{buildroot}/bin/gtar
-
-install -D -m 644 tar.1 %{buildroot}%{_mandir}/man1/tar.1
+mv %{buildroot}%{_bindir}/tar %{buildroot}%{_bindir}/gtar
+install -D -m 644 tar.1 %{buildroot}%{_mandir}/man1/gtar.1
 
 # conflicts with coda-debug-backup
 mv %{buildroot}%{_sbindir}/backup %{buildroot}%{_sbindir}/tar-backup
@@ -83,7 +77,7 @@ mv %{buildroot}%{_libexecdir}/rmt %{buildroot}/sbin/%rmtrealname
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog.xz NEWS README THANKS TODO
-/bin/*
+%{_bindir}/*
 %{_libexecdir}/backup.sh
 %{_libexecdir}/dump-remind
 %{_sbindir}/*
