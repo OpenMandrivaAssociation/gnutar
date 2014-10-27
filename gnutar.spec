@@ -1,7 +1,7 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.27.1
-Release:	1
+Release:	2
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -45,7 +45,7 @@ sed -i 's/.*sigpipe.at.*//' tests/testsuite.at
 
 %build
 RSH=/usr/bin/rsh \
-%configure2_5x \
+%configure \
 	--enable-backup-scripts \
 	--disable-rpath
 
