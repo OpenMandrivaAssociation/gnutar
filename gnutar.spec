@@ -73,6 +73,10 @@ mv %{buildroot}%{_sbindir}/restore %{buildroot}%{_sbindir}/tar-restore
 mkdir -p %{buildroot}/sbin
 mv %{buildroot}%{_libexecdir}/rmt %{buildroot}/sbin/%rmtrealname
 
+%if "%{name}" != "tar"
+rm -f %{buildroot}%{_mandir}/man1/tar.1* %{buildroot}%{_mandir}/man8/rmt.8*
+%endif
+
 %find_lang tar
 
 %files -f tar.lang
