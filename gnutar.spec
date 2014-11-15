@@ -1,16 +1,17 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
-Version:	1.27.1
-Release:	2
+Version:	1.28
+Release:	1
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
-Source0:	ftp://ftp.gnu.org/gnu/tar/tar-%{version}.tar.bz2
+Source0:	ftp://ftp.gnu.org/gnu/tar/tar-%{version}.tar.xz
 Source2:	tar-help2man.bz2
 Patch0:		tar-1.25-fix-buffer-overflow.patch
 Patch1:		tar-1.24-lzma.patch
 #BuildRequires:	bison
 #BuildRequires:	xz
+BuildRequires:	selinux-devel
 Suggests:	/usr/bin/rsh
 Conflicts:	rmt < 0.4b36
 
