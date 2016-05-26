@@ -35,7 +35,7 @@ the alternative GNU tar implementation.
 
 %setup -qn tar-%{version}
 %patch0 -p0
-%patch1 -p0
+%patch1 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
