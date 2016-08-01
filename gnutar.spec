@@ -8,10 +8,9 @@ URL:		http://www.gnu.org/software/tar/tar.html
 Source0:	ftp://ftp.gnu.org/gnu/tar/tar-%{version}.tar.gz
 Source2:	tar-help2man.bz2
 Patch0:		tar-1.25-fix-buffer-overflow.patch
-Patch1:		tar-1.24-lzma.patch
 BuildRequires:	bison
 BuildRequires:	xz
-BuildRequires:	selinux-devel
+#BuildRequires:	selinux-devel
 Suggests:	/usr/bin/rsh
 Conflicts:	rmt < 0.4b36
 
@@ -35,7 +34,6 @@ the alternative GNU tar implementation.
 
 %setup -qn tar-%{version}
 %patch0 -p0
-%patch1 -p1
 
 bzcat %{SOURCE2} > ./help2man
 chmod +x ./help2man
