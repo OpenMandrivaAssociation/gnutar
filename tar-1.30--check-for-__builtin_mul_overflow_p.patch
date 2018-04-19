@@ -1,0 +1,125 @@
+diff -Naur tar-1.30/configure.ac tar-1.30.tpg/configure.ac
+--- tar-1.30/configure.ac	2017-12-17 10:28:20.000000000 +0000
++++ tar-1.30.tpg/configure.ac	2018-04-19 19:32:02.141540797 +0000
+@@ -34,6 +34,18 @@
+ gl_EARLY
+ AC_CHECK_TOOLS([AR], [ar])
+ 
++AC_CACHE_CHECK([for gcc 7-compatible __builtin_mul_overflow_p],
++  [utils_cv_builtin_mul_overflow_p],
++  [AC_COMPILE_IFELSE(
++    [AC_LANG_PROGRAM(
++      [[]],
++      [[return __builtin_mul_overflow_p(1, 2, 3);]])],
++    [utils_cv_builtin_mul_overflow_p=yes],
++    [utils_cv_builtin_mul_overflow_p=no])])
++if test $utils_cv_builtin_mul_overflow_p = yes; then
++  AC_DEFINE([HAVE_BUILTIN_MUL_OVERFLOW_P], [1], [Define if your compiler supports __builtin_mul_overflow_p])
++fi
++
+ AC_SYS_LARGEFILE
+ AC_C_INLINE
+ 
+diff -Naur tar-1.30/gnu/fnmatch.c tar-1.30.tpg/gnu/fnmatch.c
+--- tar-1.30/gnu/fnmatch.c	2017-12-16 21:23:33.000000000 +0000
++++ tar-1.30.tpg/gnu/fnmatch.c	2018-04-19 19:51:08.816867372 +0000
+@@ -66,7 +66,7 @@
+ #include "flexmember.h"
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/intprops.h tar-1.30.tpg/gnu/intprops.h
+--- tar-1.30/gnu/intprops.h	2017-12-16 21:23:33.000000000 +0000
++++ tar-1.30.tpg/gnu/intprops.h	2018-04-19 19:33:48.232833297 +0000
+@@ -225,14 +225,11 @@
+ # define _GL_HAS_BUILTIN_OVERFLOW 0
+ #endif
+ 
+-/* True if __builtin_add_overflow_p (A, B, C) works.  */
+-#define _GL_HAS_BUILTIN_OVERFLOW_P (7 <= __GNUC__)
+-
+ /* The _GL*_OVERFLOW macros have the same restrictions as the
+    *_RANGE_OVERFLOW macros, except that they do not assume that operands
+    (e.g., A and B) have the same type as MIN and MAX.  Instead, they assume
+    that the result (e.g., A + B) has that type.  */
+-#if _GL_HAS_BUILTIN_OVERFLOW_P
++#ifdef HAVE_BUILTIN_MUL_OVERFLOW_P
+ # define _GL_ADD_OVERFLOW(a, b, min, max)                               \
+    __builtin_add_overflow_p (a, b, (__typeof__ ((a) + (b))) 0)
+ # define _GL_SUBTRACT_OVERFLOW(a, b, min, max)                          \
+diff -Naur tar-1.30/gnu/mbrtowc.c tar-1.30.tpg/gnu/mbrtowc.c
+--- tar-1.30/gnu/mbrtowc.c	2017-12-16 21:23:33.000000000 +0000
++++ tar-1.30.tpg/gnu/mbrtowc.c	2018-04-19 19:36:28.676249513 +0000
+@@ -36,7 +36,7 @@
+ # include "verify.h"
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/nstrftime.c tar-1.30.tpg/gnu/nstrftime.c
+--- tar-1.30/gnu/nstrftime.c	2017-12-16 21:23:32.000000000 +0000
++++ tar-1.30.tpg/gnu/nstrftime.c	2018-04-19 19:50:13.312369586 +0000
+@@ -69,7 +69,7 @@
+ #include <stdbool.h>
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/quotearg.c tar-1.30.tpg/gnu/quotearg.c
+--- tar-1.30/gnu/quotearg.c	2017-12-16 21:23:34.000000000 +0000
++++ tar-1.30.tpg/gnu/quotearg.c	2018-04-19 19:49:59.700241948 +0000
+@@ -55,7 +55,7 @@
+ #define INT_BITS (sizeof (int) * CHAR_BIT)
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/regex_internal.h tar-1.30.tpg/gnu/regex_internal.h
+--- tar-1.30/gnu/regex_internal.h	2017-12-16 21:23:34.000000000 +0000
++++ tar-1.30.tpg/gnu/regex_internal.h	2018-04-19 19:50:50.269704952 +0000
+@@ -900,7 +900,7 @@
+ #endif
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/vasnprintf.c tar-1.30.tpg/gnu/vasnprintf.c
+--- tar-1.30/gnu/vasnprintf.c	2017-12-16 21:23:34.000000000 +0000
++++ tar-1.30.tpg/gnu/vasnprintf.c	2018-04-19 19:49:32.407979016 +0000
+@@ -119,7 +119,7 @@
+ #endif
+ 
+ #ifndef FALLTHROUGH
+-# if __GNUC__ < 7
++# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
+ #  define FALLTHROUGH ((void) 0)
+ # else
+ #  define FALLTHROUGH __attribute__ ((__fallthrough__))
+diff -Naur tar-1.30/gnu/xalloc-oversized.h tar-1.30.tpg/gnu/xalloc-oversized.h
+--- tar-1.30/gnu/xalloc-oversized.h	2017-12-16 21:23:34.000000000 +0000
++++ tar-1.30.tpg/gnu/xalloc-oversized.h	2018-04-19 19:34:31.093947271 +0000
+@@ -41,7 +41,7 @@
+    positive and N must be nonnegative.  This is a macro, not a
+    function, so that it works correctly even when SIZE_MAX < N.  */
+ 
+-#if 7 <= __GNUC__
++#ifdef HAVE_BUILTIN_MUL_OVERFLOW_P
+ # define xalloc_oversized(n, s) \
+    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
+ #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
