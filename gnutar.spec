@@ -1,3 +1,6 @@
+# (tpg) optimize it a bit
+%global optflags %{optflags} -O3
+
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.30
