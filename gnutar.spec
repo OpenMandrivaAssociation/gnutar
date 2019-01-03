@@ -3,7 +3,7 @@
 
 Summary:	A GNU file archiving program
 Name:		gnutar
-Version:	1.30
+Version:	1.31
 Release:	1
 License:	GPLv3
 Group:		Archiving/Backup
