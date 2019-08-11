@@ -1,5 +1,7 @@
 # (tpg) optimize it a bit
+%ifnarch %{riscv}
 %global optflags %{optflags} -O3 --rtlib=compiler-rt
+%endif
 
 Summary:	A GNU file archiving program
 Name:		gnutar
