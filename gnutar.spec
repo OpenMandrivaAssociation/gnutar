@@ -6,7 +6,7 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.34
-Release:	1
+Release:	2
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -70,8 +70,8 @@ mv %{buildroot}%{_sbindir}/restore %{buildroot}%{_sbindir}/tar-restore
 
 # rmt is provided by rmt ...
 %define rmtrealname rmt-tar
-mkdir -p %{buildroot}/sbin
-mv %{buildroot}%{_libexecdir}/rmt %{buildroot}/sbin/%rmtrealname
+mkdir -p %{buildroot}%{_sbindir}
+mv %{buildroot}%{_libexecdir}/rmt %{buildroot}%{_sbindir}/%rmtrealname
 
 %if "%{name}" != "tar"
 rm -f %{buildroot}%{_mandir}/man1/tar.1* %{buildroot}%{_mandir}/man8/rmt.8*
@@ -85,6 +85,5 @@ rm -f %{buildroot}%{_mandir}/man1/tar.1* %{buildroot}%{_mandir}/man8/rmt.8*
 %{_libexecdir}/backup.sh
 %{_libexecdir}/dump-remind
 %{_sbindir}/*
-/sbin/%rmtrealname
-%{_infodir}/*.info*
-%{_mandir}/man?/*
+%doc %{_infodir}/*.info*
+%doc %{_mandir}/man?/*
