@@ -6,7 +6,7 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.34
-Release:	2
+Release:	3
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -15,6 +15,7 @@ Source2:	tar-help2man.bz2
 BuildRequires:	bison
 BuildRequires:	xz
 BuildRequires:	pkgconfig(libacl)
+Requires: chkconfig
 Suggests:	/usr/bin/rsh
 Conflicts:	rmt < 0.4b36
 
@@ -84,6 +85,11 @@ rm -f %{buildroot}%{_mandir}/man1/tar.1* %{buildroot}%{_mandir}/man8/rmt.8*
 %{_bindir}/*
 %{_libexecdir}/backup.sh
 %{_libexecdir}/dump-remind
-%{_sbindir}/*
 %doc %{_infodir}/*.info*
 %doc %{_mandir}/man?/*
+
+%post
+alternatives --install /usr/bin/tar tar /usr/bin/gtar 1
+
+%postun
+alternatives --remove tar /usr/bin/gtar
