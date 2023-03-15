@@ -6,7 +6,7 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.34
-Release:	2
+Release:	3
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
@@ -77,13 +77,21 @@ mv %{buildroot}%{_libexecdir}/rmt %{buildroot}%{_sbindir}/%rmtrealname
 rm -f %{buildroot}%{_mandir}/man1/tar.1* %{buildroot}%{_mandir}/man8/rmt.8*
 %endif
 
+# Add a symlink in a directory of its own so scripts that rely on gnutar
+# behavior can just set PATH
+mkdir -p %{buildroot}%{_libexecdir}/gnutar
+ln -s %{_bindir}/gtar %{buildroot}%{_libexecdir}/gnutar/tar
+
 %find_lang tar
 
 %files -f tar.lang
 %doc AUTHORS ChangeLog.xz NEWS README THANKS TODO
 %{_bindir}/*
+%if "%{_bindir}" != "%{_sbindir}"
+%{_sbindir}/*
+%endif
 %{_libexecdir}/backup.sh
 %{_libexecdir}/dump-remind
-%{_sbindir}/*
+%{_libexecdir}/gnutar
 %doc %{_infodir}/*.info*
 %doc %{_mandir}/man?/*
