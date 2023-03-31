@@ -6,7 +6,7 @@
 Summary:	A GNU file archiving program
 Name:		gnutar
 Version:	1.34
-Release:	3
+Release:	4
 License:	GPLv3
 Group:		Archiving/Backup
 URL:		http://www.gnu.org/software/tar/tar.html
